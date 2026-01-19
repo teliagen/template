@@ -1,4 +1,5 @@
 import { RbacPlugin } from '@teliagen/plugin-rbac';
+import { User } from '@teliagen/plugin-identity/modules/app/index.js';
 {{#if authEnabled}}
 import { authPlugin } from './auth.plugin.js';
 {{/if}}
@@ -12,6 +13,10 @@ auth: {
 guard: authPlugin.Guard
 },
 {{/if}}
+
+// Link to subject (User entity from identity)
+subject: User as any,
+
 // Default permissions
 defaultPermissions: [
 { code: 'admin:access', title: 'Admin Access', description: 'Access to admin panel' },

@@ -2,8 +2,10 @@
 * Teliagen Plugins Configuration
 */
 
-{{#if authEnabled}}
+{{#if identityEnabled}}
 import { identityPlugin } from './identity.plugin.js';
+{{/if}}
+{{#if authEnabled}}
 import { authPlugin } from './auth.plugin.js';
 {{/if}}
 {{#if rbacEnabled}}
@@ -23,8 +25,10 @@ import { playgroundPlugin } from './playground.plugin.js';
 {{/if}}
 
 export const appPlugins = [
-{{#if authEnabled}}
+{{#if identityEnabled}}
 identityPlugin,
+{{/if}}
+{{#if authEnabled}}
 authPlugin,
 {{/if}}
 {{#if rbacEnabled}}

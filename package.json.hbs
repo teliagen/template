@@ -27,9 +27,11 @@
 "sqlite3": "^5.1.0",
 {{/if}}
 {{/if}}
+{{#if identityEnabled}}
+"@teliagen/plugin-identity": "{{teliagenVersion}}",
+{{/if}}
 {{#if authEnabled}}
 "@teliagen/plugin-auth": "{{teliagenVersion}}",
-"@teliagen/plugin-identity": "{{teliagenVersion}}",
 {{/if}}
 {{#if rbacEnabled}}
 "@teliagen/plugin-rbac": "{{teliagenVersion}}",

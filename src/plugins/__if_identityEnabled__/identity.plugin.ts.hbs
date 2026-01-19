@@ -1,10 +1,14 @@
 import { IdentityPlugin } from '@teliagen/plugin-identity';
+{{#if authEnabled}}
 import { authPlugin } from './auth.plugin.js';
+{{/if}}
 
 export const identityPlugin = IdentityPlugin({
 name: 'app',
 actionsPrefix: 'v1',
+{{#if authEnabled}}
 auth: {
 guard: authPlugin.Guard
 }
+{{/if}}
 });
