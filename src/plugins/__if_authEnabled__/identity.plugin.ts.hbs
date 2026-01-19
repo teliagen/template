@@ -1,0 +1,10 @@
+import { IdentityPlugin } from '@teliagen/plugin-identity';
+import { authPlugin } from './auth.plugin.js';
+
+export const identityPlugin = IdentityPlugin({
+name: 'app',
+actionsPrefix: 'v1',
+auth: {
+guard: authPlugin.Guard
+}
+});

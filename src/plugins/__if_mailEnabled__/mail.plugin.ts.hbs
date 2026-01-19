@@ -1,0 +1,22 @@
+import { MailPlugin } from '@teliagen/plugin-mail';
+
+export const mailPlugin = MailPlugin({
+defaultFrom: {
+name: process.env.MAIL_FROM_NAME || '{{projectName}}',
+email: process.env.MAIL_FROM_EMAIL || 'noreply@{{projectName}}.dev'
+},
+
+defaultDriver: 'console',
+enableLogging: process.env.NODE_ENV !== 'production',
+
+// SMTP Configuration
+smtp: {
+host: process.env.SMTP_HOST || 'localhost',
+port: parseInt(process.env.SMTP_PORT || '587'),
+secure: process.env.SMTP_SECURE === 'true',
+auth: {
+user: process.env.SMTP_USER || '',
+pass: process.env.SMTP_PASS || ''
+}
+},
+});

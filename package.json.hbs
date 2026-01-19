@@ -1,0 +1,60 @@
+{
+"name": "{{projectName}}",
+"version": "0.1.0",
+"private": true,
+"type": "module",
+"description": "Teliagen project: {{projectName}}",
+"scripts": {
+"dev": "teliagen dev",
+"build": "teliagen build",
+"start": "teliagen start"
+},
+"dependencies": {
+{{#if persistence}}
+"@teliagen/persistence": "{{teliagenVersion}}",
+"@teliagen/adapter-sequelize": "{{teliagenVersion}}",
+{{#if postgres}}
+"pg": "^8.11.0",
+"pg-hstore": "^2.3.4",
+{{/if}}
+{{#if mysql}}
+"mysql2": "^3.6.0",
+{{/if}}
+{{#if mariadb}}
+"mysql2": "^3.6.0",
+{{/if}}
+{{#if sqlite}}
+"sqlite3": "^5.1.0",
+{{/if}}
+{{/if}}
+{{#if authEnabled}}
+"@teliagen/plugin-auth": "{{teliagenVersion}}",
+"@teliagen/plugin-identity": "{{teliagenVersion}}",
+{{/if}}
+{{#if rbacEnabled}}
+"@teliagen/plugin-rbac": "{{teliagenVersion}}",
+{{/if}}
+{{#if storageEnabled}}
+"@teliagen/plugin-storage": "{{teliagenVersion}}",
+{{/if}}
+{{#if mailEnabled}}
+"@teliagen/plugin-mail": "{{teliagenVersion}}",
+{{/if}}
+{{#if tenantEnabled}}
+"@teliagen/plugin-tenant": "{{teliagenVersion}}",
+{{/if}}
+{{#if playgroundEnabled}}
+"@teliagen/plugin-playground": "{{teliagenVersion}}",
+{{/if}}
+{{#if gateway}}
+"@teliagen/federation": "{{teliagenVersion}}",
+{{/if}}
+"@teliagen/commons": "{{teliagenVersion}}",
+"@teliagen/server": "{{teliagenVersion}}",
+"reflect-metadata": "^0.2.0"
+},
+"devDependencies": {
+"typescript": "^5.7.0",
+"@types/node": "^22.0.0"
+}
+}

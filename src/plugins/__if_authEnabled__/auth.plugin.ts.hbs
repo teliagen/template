@@ -1,0 +1,37 @@
+import { AuthPlugin } from '@teliagen/plugin-auth';
+import { User } from '@teliagen/plugin-identity/modules/app/index.js';
+
+export const authPlugin = AuthPlugin({
+  name: 'app',
+  type: 'app',
+
+  // Cookie configuration
+  cookie: {
+    enabled: true,
+    name: 'auth-token',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  },
+
+  // JWT configuration
+  jwt: {
+    secret: process.env.JWT_SECRET || 'change-this-secret-in-production',
+    expiresIn: '24h',
+    refreshSecret: process.env.JWT_REFRESH_SECRET || 'change-this-refresh-secret',
+    refreshExpiresIn: '7d'
+  },
+
+  // Entities configuration (Identity mapping)
+  entities: {
+    User: User as any,
+  },
+
+  // Actions configuration
+  actions: {
+    register: {
+      autoLogin: true
+    },
+    login: {}
+  }
+});

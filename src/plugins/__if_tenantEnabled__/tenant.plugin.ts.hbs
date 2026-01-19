@@ -1,0 +1,14 @@
+import { TenantPlugin } from '@teliagen/plugin-tenant';
+
+export const tenantPlugin = TenantPlugin({
+name: 'tenant',
+
+// Foreign key in tenant-aware entities
+foreignKey: 'tenantId',
+
+// How to resolve tenant from request
+resolver: {
+type: 'header',
+key: 'x-tenant-id'
+}
+});

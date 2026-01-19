@@ -1,0 +1,61 @@
+import 'reflect-metadata';
+import { loadConfig, InputControl, OutputControl } from '@teliagen/commons';
+import { TeliagenApp } from '@teliagen/server';
+{{#if persistence}}
+import { SequelizeAdapter } from '@teliagen/adapter-sequelize';
+{{/if}}
+
+import { HelloActions } from './src/modules/hello/actions/hello.actions.js';
+{{#if authEnabled}}
+import { appPlugins } from './src/plugins/index.js';
+{{else}}{{#if rbacEnabled}}
+import { appPlugins } from './src/plugins/index.js';
+{{else}}{{#if storageEnabled}}
+import { appPlugins } from './src/plugins/index.js';
+{{else}}{{#if mailEnabled}}
+import { appPlugins } from './src/plugins/index.js';
+{{else}}{{#if tenantEnabled}}
+import { appPlugins } from './src/plugins/index.js';
+{{else}}{{#if playgroundEnabled}}
+import { appPlugins } from './src/plugins/index.js';
+{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}
+
+export async function createApp() {
+console.log('[App] Starting createApp...');
+const { config } = await loadConfig();
+console.log('[App] Config loaded:', config.server?.name);
+
+const app = new TeliagenApp();
+
+{{#if persistence}}
+// Database configuration
+if (config.database) {
+const adapter = new SequelizeAdapter(config.database as any);
+app.useDataAdapter(adapter);
+}
+{{/if}}
+
+// Features
+app.use(InputControl());
+app.use(OutputControl());
+
+// Actions
+app.registerActions(HelloActions);
+
+{{#if authEnabled}}
+// Plugins
+await app.registerPlugins(appPlugins);
+{{else}}{{#if rbacEnabled}}
+await app.registerPlugins(appPlugins);
+{{else}}{{#if storageEnabled}}
+await app.registerPlugins(appPlugins);
+{{else}}{{#if mailEnabled}}
+await app.registerPlugins(appPlugins);
+{{else}}{{#if tenantEnabled}}
+await app.registerPlugins(appPlugins);
+{{else}}{{#if playgroundEnabled}}
+await app.registerPlugins(appPlugins);
+{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}
+
+return app;
+}

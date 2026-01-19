@@ -1,0 +1,15 @@
+import 'reflect-metadata';
+import { TeliagenHost } from '@teliagen/server';
+
+async function bootstrap() {
+     const host = new TeliagenHost();
+
+     // Teliagen reads teliagen.config.ts automatically,
+     // loads plugins, local services, and generates proxies/mirrors.
+     await host.setup();
+
+     // Start the server on the configured port
+     await host.start();
+}
+
+bootstrap().catch(console.error);
