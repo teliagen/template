@@ -1,0 +1,149 @@
+/**
+ * Teliagen Builder Configuration
+ * 
+ * Configure build behavior for your Teliagen application.
+ * 
+ * This file allows you to:
+ * - Control build mode (development/production)
+ * - Enable/disable generation of different file types
+ * - Configure output options (source maps, declarations)
+ * - Specify which apps to build
+ * 
+ * @example Disable type generation
+ * ```typescript
+ * export default {
+ *   generate: {
+ *     metadata: true,
+ *     types: false,
+ *     entities: true
+ *   }
+ * };
+ * ```
+ * 
+ * @example Production build configuration
+ * ```typescript
+ * export default {
+ *   mode: 'production',
+ *   generate: true,
+ *   output: {
+ *     sourceMaps: false,
+ *     declarations: true
+ *   }
+ * };
+ * ```
+ */
+
+import type { BuilderConfig } from '@teliagen/build';
+
+const config: BuilderConfig = {
+  /**
+   * Build mode.
+   * 
+   * - 'development': Optimized for development (faster builds, source maps)
+   * - 'production': Optimized for production (optimizations, no source maps)
+   * 
+   * Default: 'development'
+   */
+  mode: 'development' as const,
+
+  /**
+   * Enable file watching.
+   * 
+   * When enabled, the builder will watch for file changes and rebuild automatically.
+   * 
+   * Default: false
+   */
+  watch: false,
+
+  /**
+   * Generation options.
+   * 
+   * Control which files are generated during the build process.
+   * Can be a boolean (true = generate all, false = generate nothing) or
+   * an object with fine-grained control.
+   */
+  generate: {
+    /**
+     * Generate metadata files (.teliagen/metadata/*).
+     * 
+     * Metadata files contain information about actions, entities, schemas, etc.
+     * Required for the framework to work properly.
+     * 
+     * Default: true
+     */
+    metadata: true,
+
+    /**
+     * Generate type definitions (.teliagen/types/*).
+     * 
+     * Type definitions are used for TypeScript type safety in the frontend.
+     * 
+     * Default: true
+     */
+    types: true,
+
+    /**
+     * Generate entity definitions (.teliagen/entities/*).
+     * 
+     * Entity definitions contain information about database entities.
+     * 
+     * Default: true
+     */
+    entities: true,
+
+    /**
+     * Generate cross-server definitions.
+     * 
+     * Used for multi-app/multi-server setups with federation.
+     * 
+     * Default: false
+     */
+    crossServer: false,
+  },
+
+  /**
+   * Apps to build.
+   * 
+   * Specify which apps to build:
+   * - 'all': Build all apps (default)
+   * - ['app1', 'app2']: Build specific apps
+   * 
+   * Default: 'all'
+   */
+  apps: 'all' as const,
+
+  /**
+   * Output options.
+   * 
+   * Control the output of the TypeScript compilation.
+   */
+  output: {
+    /**
+     * Output directory for compiled files.
+     * 
+     * Default: 'dist'
+     */
+    dir: 'dist',
+
+    /**
+     * Generate source maps.
+     * 
+     * Source maps are useful for debugging in development.
+     * Usually disabled in production for smaller bundle sizes.
+     * 
+     * Default: true (in development), false (in production)
+     */
+    sourceMaps: true,
+
+    /**
+     * Generate TypeScript declaration files (.d.ts).
+     * 
+     * Declaration files are useful for type checking and IDE support.
+     * 
+     * Default: true
+     */
+    declarations: true,
+  },
+};
+
+export default config;

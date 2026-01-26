@@ -1,0 +1,96 @@
+/**
+ * Teliagen Logger Configuration
+ * 
+ * Configure logging behavior for your Teliagen application.
+ * 
+ * This file allows you to:
+ * - Enable/disable logging globally
+ * - Set global log level (DEBUG, INFO, WARN, ERROR, NONE)
+ * - Enable/disable specific log levels
+ * - Filter namespaces (whitelist/blacklist)
+ * 
+ * @example Enable only INFO and above, exclude ActionRegistry
+ * ```typescript
+ * export default {
+ *   enabled: true,
+ *   level: 'INFO',
+ *   levels: {
+ *     DEBUG: false,
+ *     INFO: true,
+ *     WARN: true,
+ *     ERROR: true
+ *   },
+ *   namespaces: {
+ *     disabled: ['ActionRegistry']
+ *   }
+ * };
+ * ```
+ */
+
+import type { LoggerConfig } from '@teliagen/logger';
+
+const config: LoggerConfig = {
+  /**
+   * Enable or disable logging globally.
+   * Set to false to completely disable all logs.
+   */
+  enabled: true,
+
+  /**
+   * Global log level.
+   * Only logs at or above this level will be displayed.
+   * 
+   * Levels (from most verbose to least):
+   * - DEBUG: All logs (most verbose)
+   * - INFO: Informational messages
+   * - WARN: Warning messages
+   * - ERROR: Error messages only
+   * - NONE: No logs (disabled)
+   */
+  level: 'DEBUG' as const,
+
+  /**
+   * Per-level enable/disable flags.
+   * Override the global level for specific log types.
+   * 
+   * Example: Disable DEBUG even if level is DEBUG
+   */
+  levels: {
+    DEBUG: false,  // Disable DEBUG logs (too verbose)
+    INFO: true,    // Enable INFO logs
+    WARN: true,    // Enable WARN logs
+    ERROR: true,   // Enable ERROR logs (always recommended)
+  },
+
+  /**
+   * Namespace filtering.
+   * Control which namespaces are allowed to log.
+   * 
+   * - enabled: Whitelist (only these namespaces can log)
+   * - disabled: Blacklist (these namespaces will not log)
+   * 
+   * If both are provided, disabled takes precedence.
+   * If enabled is empty or not provided, all namespaces are allowed (unless disabled).
+   */
+  namespaces: {
+    /**
+     * Whitelist: Only log from these namespaces.
+     * Leave empty or undefined to allow all (unless disabled list is used).
+     * 
+     * @example
+     * enabled: ['TeliagenApp', 'HttpServer']
+     */
+    enabled: [],
+
+    /**
+     * Blacklist: Exclude these namespaces from logging.
+     * Useful to silence verbose components.
+     * 
+     * @example
+     * disabled: ['ActionRegistry', 'RequestHandler', 'MetadataGenerator']
+     */
+    disabled: [],
+  },
+};
+
+export default config;

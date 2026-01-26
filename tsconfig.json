@@ -1,8 +1,8 @@
 {
      "compilerOptions": {
           "target": "ES2022",
-          "module": "NodeNext",
-          "moduleResolution": "NodeNext",
+          "module": "ESNext",
+          "moduleResolution": "bundler",
           "lib": [
                "ES2022"
           ],
@@ -10,6 +10,8 @@
           "outDir": "./dist",
           "rootDir": "./",
           "strict": true,
+          "strictPropertyInitialization": false,
+          "useDefineForClassFields": false,
           "esModuleInterop": true,
           "skipLibCheck": true,
           "forceConsistentCasingInFileNames": true,

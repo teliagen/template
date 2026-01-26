@@ -1,4 +1,5 @@
-import { ActionProvider, Action, Res } from '@teliagen/commons';
+import { ActionProvider, Action, Res, Input, Output } from '@teliagen/commons';
+import { GreetInput, OutputSchema } from '../schemas/hello.schema';
 
 @ActionProvider({
      module: 'hello',
@@ -8,22 +9,17 @@ export class HelloActions {
 
      @Action({
           name: 'HelloWorld',
-          public: true,
-          description: 'Returns a hello world message'
      })
-     async helloWorld(): Promise<any> {
-          return Res.ok({ message: 'Hello from Teliagen!' });
+     @Output(OutputSchema)
+     async helloWorld() {
+          return Res.json({ message: 'Hello from Teliagen!' });
      }
 
      @Action({
           name: 'Greet',
-          public: true,
-          description: 'Returns a personalized greeting',
-          input: {
-               name: { type: 'string', required: true }
-          }
      })
-     async greet(input: { name: string }): Promise<any> {
-          return Res.ok({ message: `Hello, ${input.name}!` });
+     @Output(OutputSchema)
+     async greet(@Input(GreetInput) input: GreetInput){
+          return Res.json({ message: `Hello, ${input.name}!` });
      }
 }

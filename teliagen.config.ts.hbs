@@ -1,70 +1,31 @@
 import { defineConfig{{#if corsEnabled}}, Cors{{/if}} } from '@teliagen/commons';
-{{#if authEnabled}}
-import { appPlugins } from './src/plugins/index.js';
-{{else}}{{#if rbacEnabled}}
-import { appPlugins } from './src/plugins/index.js';
-{{else}}{{#if storageEnabled}}
-import { appPlugins } from './src/plugins/index.js';
-{{else}}{{#if mailEnabled}}
-import { appPlugins } from './src/plugins/index.js';
-{{else}}{{#if tenantEnabled}}
-import { appPlugins } from './src/plugins/index.js';
-{{else}}{{#if playgroundEnabled}}
-import { appPlugins } from './src/plugins/index.js';
-{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}
+
+{{#if playgroundEnabled}}
+import { appPlugins } from './src/plugins/index';
+{{/if}}
+import {configDotenv} from "dotenv"
+configDotenv()
 
 export default defineConfig({
-server: {
-name: '{{projectName}}',
-port: {{port}},
-host: 'localhost',
-prefix: '/api',
-},
+    server: {
+        name: '{{projectName}}',
+        port: {{port}},
+        host: 'localhost',
+        prefix: '/api',
+    },
 
 {{#if corsEnabled}}
-features: [
-Cors({
-origin: ['http://localhost:5173'],
-credentials: true,
-allowedHeaders: ["*"],
-methods: ["POST", "GET"]
-}),
-],
+    features: [
+        Cors({
+            origin: ['http://localhost:5173'],
+            credentials: true,
+            allowedHeaders: ["*"],
+            methods: ["POST", "GET"]
+        }),
+    ],
 {{/if}}
 
-{{#if authEnabled}}
-plugins: appPlugins,
-{{else}}{{#if rbacEnabled}}
-plugins: appPlugins,
-{{else}}{{#if storageEnabled}}
-plugins: appPlugins,
-{{else}}{{#if mailEnabled}}
-plugins: appPlugins,
-{{else}}{{#if tenantEnabled}}
-plugins: appPlugins,
-{{else}}{{#if playgroundEnabled}}
-plugins: appPlugins,
-{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}
-
-{{#if persistence}}
-database: {
-dialect: '{{dialect}}',
-{{#if sqlite}}
-storage: './database.sqlite',
-{{else}}
-host: 'localhost',
-port: {{#if postgres}}5432{{else}}3306{{/if}},
-database: '{{projectName}}',
-username: 'postgres',
-password: 'postgres',
-{{/if}}
-logging: false,
-{{#if syncSchema}}
-syncSchema: {
-alter: true,
-force: false
-}
-{{/if}}
-}
+{{#if playgroundEnabled}}
+    plugins: appPlugins,
 {{/if}}
 });
