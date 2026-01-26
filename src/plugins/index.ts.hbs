@@ -2,46 +2,22 @@
 * Teliagen Plugins Configuration
 */
 
-{{#if identityEnabled}}
-import { identityPlugin } from './identity.plugin.js';
-{{/if}}
-{{#if authEnabled}}
-import { authPlugin } from './auth.plugin.js';
-{{/if}}
-{{#if rbacEnabled}}
-import { rbacPlugin } from './rbac.plugin.js';
-{{/if}}
 {{#if storageEnabled}}
 import { storagePlugin } from './storage.plugin.js';
 {{/if}}
 {{#if mailEnabled}}
 import { mailPlugin } from './mail.plugin.js';
 {{/if}}
-{{#if tenantEnabled}}
-import { tenantPlugin } from './tenant.plugin.js';
-{{/if}}
 {{#if playgroundEnabled}}
 import { playgroundPlugin } from './playground.plugin.js';
 {{/if}}
 
 export const appPlugins = [
-{{#if identityEnabled}}
-identityPlugin,
-{{/if}}
-{{#if authEnabled}}
-authPlugin,
-{{/if}}
-{{#if rbacEnabled}}
-rbacPlugin,
-{{/if}}
 {{#if storageEnabled}}
 storagePlugin,
 {{/if}}
 {{#if mailEnabled}}
 mailPlugin,
-{{/if}}
-{{#if tenantEnabled}}
-tenantPlugin,
 {{/if}}
 {{#if playgroundEnabled}}
 playgroundPlugin,
