@@ -1,6 +1,8 @@
 import 'reflect-metadata';
-import { loadConfig, InputControl, OutputControl, Logger } from '@teliagen/commons';
-import { TeliagenApp } from '@teliagen/server';
+import { loadConfig } from '@teliagen/commons/config';
+import { InputControl, OutputControl } from '@teliagen/commons/features';
+import { Logger } from '@teliagen/logger';
+import { TeliagenApp } from '@teliagen/server/app';
 import { HelloActions } from './src/modules/hello/actions/hello.actions';
 {{#if playgroundEnabled}}
 import { appPlugins } from './src/plugins/index';
@@ -9,24 +11,24 @@ import { configDotenv } from "dotenv"
 configDotenv()
 
 export async function createApp() {
-    Logger.info('App', 'Starting createApp...');
-    const { config } = await loadConfig();
-    Logger.info('App', 'Config loaded:', config.server?.name);
+Logger.info('App', 'Starting createApp...');
+const { config } = await loadConfig();
+Logger.info('App', 'Config loaded:', config.server?.name);
 
-    const app = new TeliagenApp();
+const app = new TeliagenApp();
 
 
-    // Features
-    app.use(InputControl());
-    app.use(OutputControl());
+// Features
+app.use(InputControl());
+app.use(OutputControl());
 
-    // Actions
-    app.registerActions(HelloActions);
+// Actions
+app.registerActions(HelloActions);
 
 {{#if playgroundEnabled}}
-    await app.registerPlugins(appPlugins);
+await app.registerPlugins(appPlugins);
 {{/if}}
 
 
-    return app;
+return app;
 }

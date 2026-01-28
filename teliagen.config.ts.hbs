@@ -1,4 +1,7 @@
-import { defineConfig{{#if corsEnabled}}, Cors{{/if}} } from '@teliagen/commons';
+import { defineConfig } from '@teliagen/commons/config';
+{{#if corsEnabled}}
+import { Cors, CorsMethods } from '@teliagen/commons/features';
+{{/if}}
 
 {{#if playgroundEnabled}}
 import { appPlugins } from './src/plugins/index';
@@ -7,25 +10,25 @@ import {configDotenv} from "dotenv"
 configDotenv()
 
 export default defineConfig({
-    server: {
-        name: '{{projectName}}',
-        port: {{port}},
-        host: 'localhost',
-        prefix: '/api',
-    },
+server: {
+name: '{{projectName}}',
+port: {{port}},
+host: 'localhost',
+prefix: '/api',
+},
 
 {{#if corsEnabled}}
-    features: [
-        Cors({
-            origin: ['http://localhost:5173'],
-            credentials: true,
-            allowedHeaders: ["*"],
-            methods: ["POST", "GET"]
-        }),
-    ],
+features: [
+Cors({
+origin: ['http://localhost:5173'],
+credentials: true,
+allowedHeaders: ["*"],
+methods: [CorsMethods.POST, CorsMethods.GET]
+}),
+],
 {{/if}}
 
 {{#if playgroundEnabled}}
-    plugins: appPlugins,
+plugins: appPlugins,
 {{/if}}
 });

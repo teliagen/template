@@ -1,4 +1,5 @@
-import { ActionProvider, Action, Res, Input, Output } from '@teliagen/commons';
+import { ActionProvider, Action, Input, Output } from '@teliagen/commons/actions/decorators';
+import { Res } from '@teliagen/commons/actions/response';
 import { GreetInput, OutputSchema } from '../schemas/hello.schema';
 
 @ActionProvider({
@@ -19,7 +20,7 @@ export class HelloActions {
           name: 'Greet',
      })
      @Output(OutputSchema)
-     async greet(@Input(GreetInput) input: GreetInput){
+     async greet(@Input(GreetInput) input: GreetInput) {
           return Res.json({ message: `Hello, ${input.name}!` });
      }
 }

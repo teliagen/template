@@ -1,4 +1,5 @@
-import { String, Schema } from "@teliagen/commons";
+import { String } from "@teliagen/commons/validation/decorators";
+import { Schema } from "@teliagen/commons/schemas/decorator";
 
 @Schema()
 export class GreetInput {

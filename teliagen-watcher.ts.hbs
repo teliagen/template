@@ -1,98 +1,98 @@
 /**
- * Teliagen Watcher Configuration
- * 
- * Configure file watching behavior for your Teliagen application.
- * 
- * This file allows you to:
- * - Enable/disable file watching globally
- * - Customize file patterns to watch
- * - Add patterns to ignore
- * - Configure stability threshold (debounce delay)
- * - Control which file types trigger regeneration
- * 
- * @example Disable watcher completely
- * ```typescript
- * export default {
- *   enabled: false
- * };
- * ```
- * 
- * @example Only watch actions and entities, ignore schemas
- * ```typescript
- * export default {
- *   enabled: true,
- *   watchFileTypes: {
- *     actions: true,
- *     entities: true,
- *     schemas: false,
- *     types: false,
- *     config: true
- *   }
- * };
- * ```
- */
+* Teliagen Watcher Configuration
+*
+* Configure file watching behavior for your Teliagen application.
+*
+* This file allows you to:
+* - Enable/disable file watching globally
+* - Customize file patterns to watch
+* - Add patterns to ignore
+* - Configure stability threshold (debounce delay)
+* - Control which file types trigger regeneration
+*
+* @example Disable watcher completely
+* ```typescript
+* export default {
+* enabled: false
+* };
+* ```
+*
+* @example Only watch actions and entities, ignore schemas
+* ```typescript
+* export default {
+* enabled: true,
+* watchFileTypes: {
+* actions: true,
+* entities: true,
+* schemas: false,
+* types: false,
+* config: true
+* }
+* };
+* ```
+*/
 
-import type { WatcherConfig } from '@teliagen/build';
+import type { WatcherConfig } from '@teliagen/build/watchers';
 
 const config: WatcherConfig = {
-  /**
-   * Enable or disable file watching globally.
-   * Set to false to completely disable the watcher.
-   */
-  enabled: true,
+/**
+* Enable or disable file watching globally.
+* Set to false to completely disable the watcher.
+*/
+enabled: true,
 
-  /**
-   * Custom file patterns to watch.
-   * If not provided, defaults to watching all .ts files and config files.
-   * 
-   * Patterns are relative to project root or can use glob patterns.
-   */
-  watchPatterns: undefined,
+/**
+* Custom file patterns to watch.
+* If not provided, defaults to watching all .ts files and config files.
+*
+* Patterns are relative to project root or can use glob patterns.
+*/
+watchPatterns: undefined,
 
-  /**
-   * Stability threshold in milliseconds for awaitWriteFinish.
-   * 
-   * When a file is modified, wait this many milliseconds after the last
-   * change before triggering regeneration. This prevents multiple
-   * regenerations when files are saved multiple times quickly.
-   * 
-   * Default: 100ms
-   * Recommended: 100-500ms
-   */
-  stabilityThreshold: 100,
+/**
+* Stability threshold in milliseconds for awaitWriteFinish.
+*
+* When a file is modified, wait this many milliseconds after the last
+* change before triggering regeneration. This prevents multiple
+* regenerations when files are saved multiple times quickly.
+*
+* Default: 100ms
+* Recommended: 100-500ms
+*/
+stabilityThreshold: 100,
 
-  /**
-   * Control which file types trigger regeneration.
-   * 
-   * By default, all file types trigger regeneration.
-   * You can disable specific types to reduce regeneration frequency.
-   */
-  watchFileTypes: {
-    /**
-     * Watch .actions.ts files (default: true)
-     */
-    actions: true,
+/**
+* Control which file types trigger regeneration.
+*
+* By default, all file types trigger regeneration.
+* You can disable specific types to reduce regeneration frequency.
+*/
+watchFileTypes: {
+/**
+* Watch .actions.ts files (default: true)
+*/
+actions: true,
 
-    /**
-     * Watch .entity.ts files (default: true)
-     */
-    entities: true,
+/**
+* Watch .entity.ts files (default: true)
+*/
+entities: true,
 
-    /**
-     * Watch .schema.ts files (default: true)
-     */
-    schemas: true,
+/**
+* Watch .schema.ts files (default: true)
+*/
+schemas: true,
 
-    /**
-     * Watch .types.ts files (default: true)
-     */
-    types: true,
+/**
+* Watch .types.ts files (default: true)
+*/
+types: true,
 
-    /**
-     * Watch config files (teliagen.config.ts/js/yaml) (default: true)
-     */
-    config: true,
-  },
+/**
+* Watch config files (teliagen.config.ts/js/yaml) (default: true)
+*/
+config: true,
+},
 };
 
 export default config;
